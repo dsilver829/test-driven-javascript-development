@@ -23,3 +23,20 @@ function anchorLightbox(anchor, options) {
 
     return lb;
 }
+
+(function () {
+    var anchors = document.getElementByTagName("a");
+    var controller = Object.create(lightboxController);
+    var regexp  = /(^|\s)lightbox(\s|$)/;
+
+    for (var i = 0, l = anchors.length; i < l; i++) {
+        if (regexp.test(anchors[i].className)) {
+            (function (anchor) {
+                anchor.onclick = function () {
+                    controller.open(anchor);
+                    return false;
+                };
+            }(anchors[i]));
+        }
+    }
+}());
